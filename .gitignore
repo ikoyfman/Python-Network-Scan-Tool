@@ -56,3 +56,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Venv
+venv/
+
+#vscode
+.vscode/
+
+db.sqlite3
