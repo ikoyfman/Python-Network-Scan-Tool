@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 class Scan(models.Model):
     scan_name = models.CharField(max_length=50)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True)
     scan_target = models.CharField(max_length=50)
     subnet = models.IntegerField(blank=True, null=True)
     

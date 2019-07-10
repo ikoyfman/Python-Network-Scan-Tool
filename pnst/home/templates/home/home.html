@@ -1,22 +1,23 @@
 {% extends 'home/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
 <div class="container">
 
-    <div class="container">        
-
-        <p class="subtitle">
+    <div class="container" style="padding-top:20px">
         What would you like to scan?
-        </p>
+        
 
         <div id="search-bar">
 
-        <form method="POST" action="#">
-            <input id="scan-target" type='text' name='scan-target'>
-            
-            <input id='subnet' type='number'>
-
+        <form action="{% url 'home' %}" method="POST">
+        {% csrf_token %}
+        <p></p>
+        {{ scan_form|crispy }}
+        <p></p>
+        <button type="submit" class="btn btn-primary">Create</button>
+        </form>    
         </div>
 
 
