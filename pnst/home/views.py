@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from home.forms import ScanForm
-
+from home.models import Scan
 
 # Create your views here.
 def home(request):
     if request.method == 'GET':
+        scans = Scan.objects.all()
         scan_form = ScanForm()
         return render(request,'home/home.html',context={
-            'scan_form':scan_form
+            'scan_form':scan_form,
+            'scans':scans,
         })
     if request.method == 'POST':
         scan_form = ScanForm(request.POST)

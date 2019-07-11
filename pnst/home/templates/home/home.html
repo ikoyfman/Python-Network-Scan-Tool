@@ -7,8 +7,6 @@
 
     <div class="container" style="padding-top:20px">
         What would you like to scan?
-        
-
         <div id="search-bar">
 
         <form action="{% url 'home' %}" method="POST">
@@ -22,6 +20,30 @@
 
 
     </div>
+
+</div>
+
+<div class='container' style="padding-top:25px">
+
+    <table class='table'>
+
+        <thead class='thead dark'>
+            <tr>
+            <th scope="col">Scan Name</th>
+            <th scope="col">Target</th>
+            <th scope="col">Status</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for scan in scans %}
+        <tr>
+        <td>{{scan.scan_name}}</td>
+        <td>{{scan.scan_target}}</td>
+        <td>{{scan.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </div>
 

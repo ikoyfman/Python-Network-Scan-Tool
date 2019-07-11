@@ -7,6 +7,7 @@ class Scan(models.Model):
     end_time = models.DateTimeField(null=True)
     scan_target = models.CharField(max_length=50)
     subnet = models.IntegerField(blank=True, null=True)
+    stauts = models.CharField(max_length=10, blank=True)
     
 
 class Host(models.Model):
