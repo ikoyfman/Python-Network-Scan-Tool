@@ -16,3 +16,7 @@ def home(request):
             scan.scan_name = (scan.scan_target + " " + scan.start_time.strftime("%D %H:%M"))
             scan.save()
             return redirect('home')
+        
+        return render(request,'home/home.html',context={
+            'scan_form':scan_form
+        })
