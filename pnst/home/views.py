@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from home.forms import ScanForm
 from home.models import Scan
+from home.tasks import get_time
 
 # Create your views here.
 def home(request):
     if request.method == 'GET':
+        time = get_time.delay()
         scans = Scan.objects.all()
         scan_form = ScanForm()
         return render(request,'home/home.html',context={

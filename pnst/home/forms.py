@@ -14,4 +14,6 @@ class ScanForm(forms.ModelForm):
             return  subnet
         elif subnet > 32 or subnet < 1:
             raise forms.ValidationError("The subnet can only be between 1 and 32")
+        
+        return subnet
 
