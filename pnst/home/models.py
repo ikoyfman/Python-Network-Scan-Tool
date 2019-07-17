@@ -8,6 +8,7 @@ class Scan(models.Model):
     scan_target = models.CharField(max_length=50)
     subnet = models.IntegerField(blank=True, null=True)
     stauts = models.CharField(max_length=10, blank=True)
+    task_id = models.CharField(max_length=50, null=True)
     
 
 class Host(models.Model):
