@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from home.forms import ScanForm
 from home.models import Scan
 from home.tasks import get_time, scan_net
@@ -25,4 +25,13 @@ def home(request):
         
         return render(request,'home/home.html',context={
             'scan_form':scan_form
+        })
+
+def results(request, scan_id):
+    if request.method == 'GET':
+        scan = Scan.objects.get(id=scan_id)
+        results = get_list_or_404(scan.host_set)
+        return render(request, 'home/results.html', context={
+            'results':results,
+            'scan':scan
         })

@@ -8,4 +8,4 @@ class ScanAdmin(admin.ModelAdmin):
 
 @admin.register(Host)
 class Host(admin.ModelAdmin):
-    list_display = ('ip_address',)
+    list_display = ('ip_address','scan_id')
