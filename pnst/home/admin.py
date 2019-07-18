@@ -4,7 +4,7 @@ from .models import Scan, Host
 # Register your models here.
 @admin.register(Scan)
 class ScanAdmin(admin.ModelAdmin):
-    list_display = ('id', 'scan_name', 'start_time', 'end_time', 'scan_target', 'subnet')
+    list_display = ('id', 'scan_name', 'start_time', 'end_time', 'scan_target', 'subnet','status')
 
 @admin.register(Host)
 class Host(admin.ModelAdmin):

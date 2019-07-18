@@ -20,6 +20,7 @@ def home(request):
             scan.scan_name = (scan.scan_target + " " + scan.start_time.strftime("%D %H:%M"))
             scan_net_task = scan_net.delay(scan.id,scan.scan_target,scan.subnet)
             scan.task_id = scan_net_task.id
+            scan.status = "In Progress"
             scan.save()
             return redirect('home')
         

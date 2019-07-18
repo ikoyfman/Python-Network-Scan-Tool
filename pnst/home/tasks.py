@@ -15,11 +15,18 @@ def get_time():
 @shared_task
 def scan_net(scan_id,scan_target,subnet,hostname=False):
     scan = Scan.objects.get(id=scan_id)
-    scan_results = network_scan(scan_target,str(subnet))
-    for key,value in scan_results.items():
-        if value is True:
-            scan.host_set.create(ip_address=key)
+    if not scan.subnet:
+        scan_results = network_scan(scan_target,"0",hostname=True)
+        scan.host_set.create(ip_address=scan_target)
+    else:
+        scan_results = network_scan(scan_target,str(subnet))
     
+        for key,value in scan_results.items():
+            if value is True:
+                scan.host_set.create(ip_address=key)
+        
+    scan.status = "Finished"
+    scan.save()
 
 
 @shared_task

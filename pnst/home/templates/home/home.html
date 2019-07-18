@@ -38,7 +38,7 @@
         <tbody>
         {% for scan in scans %}
         <tr>
-        <td>{{scan.scan_name}}</td>
+        <td><a href="{% url 'results' scan.id %}">{{scan.scan_name}}</a></td>
         <td>{{scan.scan_target}}</td>
         <td>{{scan.status}}</td>
         </tr>
