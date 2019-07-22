@@ -1,7 +1,7 @@
 # This script runs on Python 3
 import socket
 import threading
-from multiprocessing import Pool
+from multiprocessing import Pool, Process
 import time
 
 
@@ -44,14 +44,20 @@ def port_scan_threader(host_ip, port_range):
     for numb in port_range:
         host_ip_port = [host_ip, numb]
         host_ports.append(host_ip_port)
+    
+    host_chunks = [host_ports[host:host+20] for host in range(0,len(host_ports),20)]
+    for chunk in host_chunks:
+        for host in chunk:
+            p = Process(target=_multiprocess_port_scan_helper, args(host,))
+            p.start()
+            p.join()
+#     p = Pool()
+#     result_list = p.map(_multiprocess_port_scan_helper, host_ports)
+#     p.close()
 
-    p = Pool()
-    result_list = p.map(_multiprocess_port_scan_helper, host_ports)
-    p.close()
-
-    port_dict = {}
-    for idx, result in enumerate(result_list):
-        port_dict[idx + 1] = result_list[idx]
+#     port_dict = {}
+#     for idx, result in enumerate(result_list):
+#         port_dict[idx + 1] = result_list[idx]
 
     return port_dict
 
