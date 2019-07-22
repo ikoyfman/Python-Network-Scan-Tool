@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for host in results %}
+                    {% for host in host_results %}
                     <tr>
                         <td>
                             {{host.ip_address}}
@@ -30,7 +30,14 @@
                 
             </table>
                     
-            
+        <p>Do you want to scan their ports?</p>
+            <form action="{% url 'results' scan.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Scan Ports</button>
+            </form>
+
+
+        </div>    
         
     </div>
 

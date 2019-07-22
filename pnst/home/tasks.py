@@ -4,6 +4,7 @@ from celery import shared_task, current_task
 from datetime import datetime
 from django_celery_results.models import TaskResult
 from home.network_scanner_module.network_scanning import network_scan
+from home.network_scanner_module.port_scanner_threading import scan_ports
 from home.models import Host,Scan
 
 
@@ -28,6 +29,13 @@ def scan_net(scan_id,scan_target,subnet,hostname=False):
     scan.status = "Finished"
     scan.save()
 
+@shared_task
+def scan_host_ports(list_of_hosts):
+    for host in list_of_hosts:
+        print(host)
+        result = scan_ports(host,1,1024)
+
+    
 
 @shared_task
 def update_status():

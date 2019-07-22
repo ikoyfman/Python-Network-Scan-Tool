@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from home.forms import ScanForm
-from home.models import Scan
-from home.tasks import get_time, scan_net
+from home.models import Scan, Host
+from home.tasks import get_time, scan_net, scan_host_ports
 
 # Create your views here.
 def home(request):
@@ -31,8 +31,19 @@ def home(request):
 def results(request, scan_id):
     if request.method == 'GET':
         scan = Scan.objects.get(id=scan_id)
+        host_results = get_list_or_404(scan.host_set)
+        data = {
+            'host_results':host_results,
+            'scan':scan,
+            }
+        return render(request, 'home/results.html', data)
+
+    if request.method == "POST":
+        scan = Scan.objects.get(id=scan_id)
         results = get_list_or_404(scan.host_set)
-        return render(request, 'home/results.html', context={
-            'results':results,
-            'scan':scan
-        })
+        host_list = []
+        for host in results:
+            host_list.append(host.ip_address)
+        scan_results = scan_host_ports.delay(host_list)
+                           
+        
